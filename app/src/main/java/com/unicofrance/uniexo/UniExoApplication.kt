@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.skydoves.retrofit.adapters.result.ResultCallAdapterFactory
 import com.unicofrance.uniexo.data.local.database.AppDatabase
 import com.unicofrance.uniexo.data.remote.Api
-import com.unicofrance.uniexo.data.repositories.UserRepository
+import com.unicofrance.uniexo.data.repositories.ContainerRepository
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,7 +15,7 @@ class UniExoApplication : Application() {
 
     private val api: Api by lazy {
         Retrofit.Builder()
-            .baseUrl("https://hello.coucou")
+            .baseUrl("https://placeholder-url.com")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(ResultCallAdapterFactory.create())
             .client(
@@ -36,5 +36,7 @@ class UniExoApplication : Application() {
         ).build()
     }
 
-    val userRepository by lazy { UserRepository(database.userDao()) }
+    val containerRepository by lazy {
+        ContainerRepository(containerDao = database.containerDao())
+    }
 }

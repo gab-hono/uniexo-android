@@ -1,19 +1,18 @@
 package com.unicofrance.uniexo.data.local.database.entities
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface UserDao {
-    @Query("SELECT * FROM user")
-    fun getAll(): Flow<List<User>>
+interface ContainerDao {
+    @Query("SELECT * FROM container")
+    fun getAll(): Flow<List<Container>>
 
     @Insert
-    suspend fun insert(user: User)
+    suspend fun insert(container: Container)
 
-    @Query("""DELETE FROM user""")
+    @Query("""DELETE FROM container""")
     suspend fun deleteAll()
 }
