@@ -15,6 +15,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.maps.android.compose.GoogleMap
 import androidx.compose.runtime.setValue
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.maps.android.compose.MapProperties
+import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
 fun GoogleMapScreen(
@@ -23,6 +26,7 @@ fun GoogleMapScreen(
 ) {
     val location by viewModel.location.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val cameraPositionState = rememberCameraPositionState()
 
     var hasLocationPermission by remember {
         mutableStateOf(
@@ -46,5 +50,21 @@ fun GoogleMapScreen(
         }
     }
 
-    GoogleMap (modifier = modifier)
+    LaunchedEffect(hasLocationPermission) {
+        if (hasLocationPermission) {
+            viewModel.fetchUserLocation()
+        }
+    }
+
+    LaunchedEffect(location) {
+        location?.let {
+            cameraPositionState.move(CameraUpdateFactory.newLatLngZoom(it, 15f))
+        }
+    }
+
+    GoogleMap (
+        modifier = modifier,
+        cameraPositionState = cameraPositionState,
+        properties = MapProperties(isMyLocationEnabled = hasLocationPermission)
+    )
 }
