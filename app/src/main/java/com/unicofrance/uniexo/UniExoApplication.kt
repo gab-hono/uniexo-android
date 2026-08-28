@@ -39,4 +39,6 @@ class UniExoApplication : Application() {
     val containerRepository by lazy {
         ContainerRepository(containerDao = database.containerDao())
     }
+
+    val assetManager by lazy { applicationContext.assets }
 }

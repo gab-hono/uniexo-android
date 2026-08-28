@@ -16,6 +16,8 @@ activityCompose = "1.12.1"
 composeBom = "2025.12.00"
 playServicesLocation = "21.3.0"
 kotlinx-coroutines-play-services = "1.9.0"
+desugar-jdk-libs = "2.1.4"
+
 
 
 [libraries]
@@ -44,6 +46,8 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 retrofit-adapters-result = { module = "com.github.skydoves:retrofit-adapters-result", version.ref = "retrofitAdaptersResult" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines-play-services" }
+desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
+
 
 
 [plugins]

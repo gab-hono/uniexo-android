@@ -25,7 +25,8 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 viewModel = GoogleMapViewModel(
                     containerRepository = app.containerRepository,
-                    fusedLocationClient = fusedLocationClient)
+                    fusedLocationClient = fusedLocationClient,
+                    assetManager = app.assetManager)
             )
         }
     }
