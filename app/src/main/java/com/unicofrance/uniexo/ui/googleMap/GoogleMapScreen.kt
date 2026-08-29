@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -16,8 +17,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.maps.android.compose.GoogleMap
 import androidx.compose.runtime.setValue
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.MapProperties
+import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.google.maps.android.compose.rememberMarkerState
 
 @Composable
 fun GoogleMapScreen(
@@ -25,6 +29,7 @@ fun GoogleMapScreen(
     viewModel: GoogleMapViewModel
 ) {
     val location by viewModel.location.collectAsStateWithLifecycle()
+    val containers by viewModel.containers.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val cameraPositionState = rememberCameraPositionState()
 
@@ -66,5 +71,16 @@ fun GoogleMapScreen(
         modifier = modifier,
         cameraPositionState = cameraPositionState,
         properties = MapProperties(isMyLocationEnabled = hasLocationPermission)
-    )
+    ) {
+        containers.forEach { container ->
+            key(container.id) {
+                Marker(
+                    state = rememberMarkerState(
+                        position = LatLng(container.latitude, container.longitude)
+                    ),
+                    title = container.label
+                )
+            }
+        }
+    }
 }
