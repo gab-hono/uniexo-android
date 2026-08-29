@@ -22,6 +22,7 @@ import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
+import com.unicofrance.uniexo.data.local.database.entities.Container
 
 @Composable
 fun GoogleMapScreen(
@@ -41,6 +42,8 @@ fun GoogleMapScreen(
             ) == PackageManager.PERMISSION_GRANTED
         )
     }
+
+    var selectContainer by remember { mutableStateOf<Container?>(null) }
 
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
@@ -78,9 +81,20 @@ fun GoogleMapScreen(
                     state = rememberMarkerState(
                         position = LatLng(container.latitude, container.longitude)
                     ),
-                    title = container.label
+                    title = container.label,
+                    onClick = {
+                        selectContainer = container
+                        true
+                    }
                 )
             }
         }
+    }
+
+    selectContainer?.let { container ->
+        ContainerDetailDialog(
+            container = container,
+            onDismiss = { selectContainer = null }
+        )
     }
 }

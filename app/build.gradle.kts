@@ -80,4 +80,5 @@ dependencies {
     implementation(libs.kotlinx.coroutines.play.services)
     ksp(libs.androidx.room.compiler)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation(libs.androidx.compose.material.icons.extended)
 }
