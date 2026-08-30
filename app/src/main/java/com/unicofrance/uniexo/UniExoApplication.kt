@@ -2,6 +2,7 @@ package com.unicofrance.uniexo
 
 import android.app.Application
 import androidx.room.Room
+import com.google.android.gms.maps.MapsInitializer
 import com.skydoves.retrofit.adapters.result.ResultCallAdapterFactory
 import com.unicofrance.uniexo.data.local.database.AppDatabase
 import com.unicofrance.uniexo.data.remote.Api
@@ -12,6 +13,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class UniExoApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        MapsInitializer.initialize(this)
+    }
 
     private val api: Api by lazy {
         Retrofit.Builder()
